@@ -20,6 +20,8 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn -B package --file pom.xml
+    - name: maven Dependancy resolve
+      run: mvn dependency:resolve
 
   security-check:
     runs-on: ubuntu-latest
