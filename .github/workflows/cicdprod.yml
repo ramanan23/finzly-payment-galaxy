@@ -7,7 +7,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  compile-job:
+  Compile-job:
     runs-on: self-hosted-prod
 
     steps:
@@ -27,7 +27,7 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file pom.xml
     
-  security-check:
+  Security-check:
     runs-on: self-hosted-prod
     needs: compile-job
 
@@ -62,7 +62,7 @@ jobs:
     - name: Gitleaks code scan
       run: gitleaks detect source . -r gitleaks-report.json -f json 
 
-  test-phase:
+  Test-phase:
     runs-on: self-hosted-prod
     needs: security-check
     steps:
@@ -77,3 +77,39 @@ jobs:
     
     - name: unit test by maven
       run: mvn test
+
+  Build-phase:
+      runs-on: self-hosted-prod
+      needs: Test-phase
+      steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Build by maven
+        run: mvn package
+
+      - uses: actions/checkout@v4
+        with:
+          # Disabling shallow clones is recommended for improving the relevancy of reporting
+          fetch-depth: 0
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v8.2.1 # Ex: v4.1.0, See the latest version at https://github.com/marketplace/actions/official-sonarqube-scan
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
+
+      - name: SonarQube Quality Gate check
+        id: sonarqube-quality-gate-check
+        uses: sonarsource/sonarqube-quality-gate-action@master
+        with:
+            pollingTimeoutSec: 600
+          env:
+              SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+              SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
+  
