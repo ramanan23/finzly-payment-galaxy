@@ -60,4 +60,9 @@ jobs:
       run: sudo apt install gitleaks -y 
 
     - name: Gitleaks code scan
+      run: gitleaks detect source . -r gitleaks-report.json -f json 
+
+      
+
+    - name: Gitleaks code scan
       run: gitleaks detect source . -r gitleaks-report.json -f json
