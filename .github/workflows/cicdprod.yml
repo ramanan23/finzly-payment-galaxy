@@ -6,6 +6,12 @@ on:
   pull_request:
     branches: [ "main" ]
 
+  workflow_dispatch:   # allows manual trigger from GitHub UI when needed
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   compile-job:
     runs-on: self-hosted-prod
