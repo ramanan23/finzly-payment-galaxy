@@ -1,3 +1,5 @@
+<img width="765" height="401" alt="finzly (1)" src="https://github.com/user-attachments/assets/7e61da43-5abf-460a-8251-3403ec50d5ee" />
+
 # TEST finzly-payment-galaxy platform
 Main repo to host projects of payment galaxy product
 
@@ -71,13 +73,6 @@ With `galaxyapp` running **2 replicas**, every deployment triggered by the pipel
 - The current setup relies on Kubernetes' defaults (`maxUnavailable: 25%`, `maxSurge: 25%`). These can be made explicit and tuned in `deployment.yaml` if tighter control over rollout speed or availability is needed, e.g.:
 
 ```yaml
-spec:
-  replicas: 2
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxUnavailable: 0
-      maxSurge: 1
 
 ### Tech stack
 
