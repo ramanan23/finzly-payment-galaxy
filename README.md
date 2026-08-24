@@ -1,4 +1,4 @@
-<img width="765" height="401" alt="finzly (1)" src="https://github.com/user-attachments/assets/7e61da43-5abf-460a-8251-3403ec50d5ee" />
+<img width="150" height="79" alt="finzly (1)" src="https://github.com/user-attachments/assets/7e61da43-5abf-460a-8251-3403ec50d5ee" />
 
 # TEST finzly-payment-galaxy platform
 Main repo to host projects of payment galaxy product
