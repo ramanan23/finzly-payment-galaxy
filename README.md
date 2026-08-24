@@ -66,14 +66,6 @@ With `galaxyapp` running **2 replicas**, every deployment triggered by the pipel
 - **Built-in safety net** — if the new image fails its readiness/liveness checks, the rollout stalls instead of taking down all healthy pods.
 - **No extra tooling required** — this is Kubernetes' native default behavior, unlike Blue-Green or Canary deployments, which would require additional tools (e.g. Argo Rollouts, Flagger) and are not currently used in this pipeline.
 
-### Notes
-
-- This is **not** a Recreate strategy — old pods are not killed before new ones start, so there's no downtime window.
-- This is **not** Blue-Green or Canary — traffic isn't split between two full environments or gradually shifted; it's a straightforward one-at-a-time pod replacement.
-- The current setup relies on Kubernetes' defaults (`maxUnavailable: 25%`, `maxSurge: 25%`). These can be made explicit and tuned in `deployment.yaml` if tighter control over rollout speed or availability is needed, e.g.:
-
-```yaml
-
 ### Tech stack
 
 - **CI/CD:** GitHub Actions (self-hosted runners)
