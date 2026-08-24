@@ -147,5 +147,5 @@ jobs:
       with:
         context: .
         push: true
-        tags: ramanan23/galaxyapp:latest
+        tags: ramanan23/galaxyapp_1.0:latest
         file: ./Dockerfile    
